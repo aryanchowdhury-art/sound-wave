@@ -1,0 +1,1089 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Customer Support & CRM Analytics · Industry Primer</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Fraunces:wght@500;600;700;800&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --navy:#0F172A; --ink:#1F2937; --slate:#475569; --gray:#6B7280;
+    --light:#E5E7EB; --paper:#FAFAFA; --cream:#FEFCE8;
+    --accent:#6D28D9; --accent-soft:#EDE9FE; --accent-dark:#4C1D95;
+    --gold:#B45309; --gold-soft:#FEF3C7;
+    --green:#047857; --green-soft:#D1FAE5;
+    --blue:#1D4ED8; --blue-soft:#DBEAFE;
+    --red:#B91C1C; --red-soft:#FEE2E2;
+    --teal:#0F766E; --teal-soft:#CCFBF1;
+  }
+  *,*::before,*::after { box-sizing: border-box; margin:0; padding:0; }
+  html { scroll-behavior: smooth; }
+  body {
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+    color: var(--ink); background: #FFFFFF; line-height: 1.65; font-size: 16px;
+    -webkit-font-smoothing: antialiased;
+  }
+  .wrap { max-width: 1100px; margin: 0 auto; padding: 0 32px; }
+  .narrow { max-width: 820px; margin: 0 auto; }
+
+  .topnav {
+    position: sticky; top: 0; z-index: 100;
+    background: rgba(255,255,255,0.92); backdrop-filter: blur(10px);
+    border-bottom: 1px solid var(--light); padding: 14px 0;
+  }
+  .topnav-inner {
+    display: flex; align-items: center; justify-content: space-between;
+    max-width: 1100px; margin: 0 auto; padding: 0 32px;
+  }
+  .brand {
+    font-family: 'Fraunces', serif;
+    font-weight: 700; font-size: 20px; color: var(--navy); letter-spacing: -0.02em;
+  }
+  .brand span { color: var(--accent); }
+  .nav-links { display: flex; gap: 24px; list-style: none; }
+  .nav-links a { color: var(--slate); text-decoration: none; font-size: 14px; font-weight: 500; transition: color 0.15s; }
+  .nav-links a:hover { color: var(--accent); }
+
+  .hero {
+    padding: 110px 0 100px;
+    background: linear-gradient(180deg, #FFFFFF 0%, var(--paper) 100%);
+    border-bottom: 1px solid var(--light);
+    position: relative; overflow: hidden;
+  }
+  .hero::before {
+    content: ''; position: absolute; top: -20%; right: -10%;
+    width: 500px; height: 500px;
+    background: radial-gradient(circle, rgba(109,40,217,0.08) 0%, transparent 70%);
+    border-radius: 50%;
+  }
+  .hero-eyebrow {
+    display: inline-block;
+    font-size: 13px; font-weight: 600; letter-spacing: 0.12em;
+    text-transform: uppercase; color: var(--accent);
+    padding: 8px 16px; background: var(--accent-soft);
+    border-radius: 100px; margin-bottom: 24px;
+  }
+  .hero h1 {
+    font-family: 'Fraunces', serif;
+    font-size: clamp(38px, 5.5vw, 64px);
+    line-height: 1.05; letter-spacing: -0.03em; color: var(--navy);
+    font-weight: 700; margin-bottom: 24px;
+  }
+  .hero h1 em { font-style: italic; color: var(--accent); font-weight: 600; }
+  .hero-lede {
+    font-size: 20px; line-height: 1.6; color: var(--slate);
+    max-width: 720px; margin-bottom: 36px;
+  }
+  .hero-meta {
+    display: flex; gap: 32px; flex-wrap: wrap;
+    padding: 20px 24px; background: #FFFFFF;
+    border: 1px solid var(--light); border-radius: 12px;
+    max-width: 720px;
+  }
+  .hero-meta-item .label {
+    font-size: 11px; font-weight: 600; letter-spacing: 0.08em;
+    text-transform: uppercase; color: var(--gray); margin-bottom: 4px;
+  }
+  .hero-meta-item .value { font-size: 15px; font-weight: 600; color: var(--navy); }
+
+  section { padding: 80px 0; scroll-margin-top: 70px; }
+  section.alt { background: var(--paper); }
+  .eyebrow {
+    font-size: 12px; font-weight: 600; letter-spacing: 0.14em;
+    text-transform: uppercase; color: var(--accent); margin-bottom: 12px;
+  }
+  h2 {
+    font-family: 'Fraunces', serif;
+    font-size: clamp(28px, 3.5vw, 40px);
+    color: var(--navy); letter-spacing: -0.02em;
+    font-weight: 700; line-height: 1.15; margin-bottom: 16px;
+  }
+  h2 em { font-style: italic; color: var(--accent); }
+  h3 {
+    font-family: 'Inter', sans-serif;
+    font-size: 20px; font-weight: 700; color: var(--navy);
+    margin: 32px 0 10px; letter-spacing: -0.01em;
+  }
+  h4 { font-size: 15px; font-weight: 700; color: var(--navy); margin: 18px 0 6px; }
+  p { margin-bottom: 14px; color: var(--ink); }
+  p.lede { font-size: 18px; line-height: 1.65; color: var(--slate); margin-bottom: 28px; }
+  ul, ol { margin: 0 0 16px 22px; }
+  ul li, ol li { margin-bottom: 6px; line-height: 1.6; }
+  strong { color: var(--navy); font-weight: 600; }
+  em { color: var(--slate); }
+  code {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.9em;
+    background: var(--paper); border: 1px solid var(--light);
+    padding: 1px 6px; border-radius: 4px; color: var(--accent-dark);
+  }
+
+  .grid-2 { display: grid; grid-template-columns: repeat(2, 1fr); gap: 24px; }
+  .grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
+  .grid-4 { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; }
+  @media (max-width: 820px) { .grid-2, .grid-3, .grid-4 { grid-template-columns: 1fr; } }
+
+  .card {
+    background: #FFFFFF; border: 1px solid var(--light);
+    border-radius: 14px; padding: 26px;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+  }
+  .card:hover { transform: translateY(-2px); box-shadow: 0 10px 30px rgba(15,23,42,0.06); }
+  .card-kicker {
+    font-size: 11px; font-weight: 600; letter-spacing: 0.1em;
+    text-transform: uppercase; color: var(--accent); margin-bottom: 8px;
+  }
+  .card h4 { font-size: 18px; margin-bottom: 10px; margin-top: 0; }
+  .card p { font-size: 14.5px; line-height: 1.6; color: var(--slate); margin-bottom: 0; }
+
+  .callout {
+    background: var(--gold-soft);
+    border-left: 4px solid var(--gold);
+    padding: 22px 26px; border-radius: 0 10px 10px 0;
+    margin: 28px 0;
+  }
+  .callout.blue { background: var(--blue-soft); border-left-color: var(--blue); }
+  .callout.green { background: var(--green-soft); border-left-color: var(--green); }
+  .callout.purple { background: var(--accent-soft); border-left-color: var(--accent); }
+  .callout.red { background: var(--red-soft); border-left-color: var(--red); }
+  .callout-title {
+    font-weight: 700; color: var(--navy); margin-bottom: 6px;
+    font-size: 15px; display: flex; align-items: center; gap: 8px;
+  }
+  .callout p { margin-bottom: 0; font-size: 15px; color: var(--ink); }
+  .callout p + p { margin-top: 10px; }
+
+  .table-wrap { overflow-x: auto; margin: 20px 0; }
+  table {
+    width: 100%; border-collapse: collapse; font-size: 14.5px;
+    border-radius: 10px; overflow: hidden;
+    box-shadow: 0 0 0 1px var(--light);
+  }
+  th {
+    background: var(--navy); color: #FFFFFF;
+    text-align: left; padding: 14px 16px;
+    font-weight: 600; font-size: 13px; letter-spacing: 0.02em;
+  }
+  td { padding: 12px 16px; border-top: 1px solid var(--light); vertical-align: top; }
+  tbody tr:nth-child(even) { background: var(--paper); }
+  tbody tr:hover { background: var(--cream); }
+
+  /* Pyramid (CRM tiers) */
+  .pyramid { max-width: 680px; margin: 30px auto; }
+  .pyramid-row {
+    display: grid; grid-template-columns: 1fr 2fr; gap: 20px;
+    align-items: center; margin-bottom: 3px;
+  }
+  .pyramid-bar {
+    padding: 20px 24px; color: #FFFFFF; font-weight: 700;
+    text-align: center; font-size: 15px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+  }
+  .pyramid-row:nth-child(1) .pyramid-bar { background: linear-gradient(135deg, #A855F7, #7C3AED); width: 35%; margin-left: 32.5%; border-radius: 8px 8px 0 0; }
+  .pyramid-row:nth-child(2) .pyramid-bar { background: linear-gradient(135deg, #F59E0B, #D97706); width: 55%; margin-left: 22.5%; }
+  .pyramid-row:nth-child(3) .pyramid-bar { background: linear-gradient(135deg, #6B7280, #4B5563); width: 75%; margin-left: 12.5%; }
+  .pyramid-row:nth-child(4) .pyramid-bar { background: linear-gradient(135deg, #92400E, #78350F); width: 95%; margin-left: 2.5%; border-radius: 0 0 8px 8px; }
+  .pyramid-desc { font-size: 13.5px; color: var(--slate); line-height: 1.55; }
+  .pyramid-desc strong { display: block; color: var(--navy); margin-bottom: 2px; font-size: 14px; }
+
+  .kpi-item {
+    padding: 18px 22px; border: 1px solid var(--light);
+    border-radius: 10px; background: #FFFFFF; margin-bottom: 12px;
+  }
+  .kpi-item summary {
+    cursor: pointer; display: flex; justify-content: space-between;
+    align-items: center; font-weight: 600; color: var(--navy);
+    font-size: 15.5px; list-style: none;
+  }
+  .kpi-item summary::-webkit-details-marker { display: none; }
+  .kpi-item summary::after {
+    content: '+'; font-size: 22px; color: var(--gray); font-weight: 400;
+    transition: transform 0.2s;
+  }
+  .kpi-item[open] summary::after { content: '−'; }
+  .kpi-formula {
+    font-family: 'JetBrains Mono', monospace; font-size: 13px;
+    background: var(--paper); padding: 10px 14px;
+    border-radius: 6px; border: 1px solid var(--light);
+    margin: 10px 0 12px; color: var(--accent-dark);
+  }
+  .kpi-meta {
+    display: flex; gap: 16px; font-size: 13px; color: var(--gray);
+    padding-top: 8px; border-top: 1px dashed var(--light);
+  }
+  .kpi-meta strong { color: var(--slate); margin-right: 4px; }
+
+  .ps-item {
+    display: grid; grid-template-columns: 1fr 1fr 1fr 1fr;
+    gap: 16px; padding: 24px; background: #FFFFFF;
+    border: 1px solid var(--light); border-radius: 12px;
+    margin-bottom: 14px;
+    transition: border-color 0.15s, box-shadow 0.15s;
+  }
+  .ps-item:hover { border-color: var(--accent); box-shadow: 0 6px 20px rgba(109,40,217,0.08); }
+  @media (max-width: 820px) { .ps-item { grid-template-columns: 1fr; } }
+  .ps-col-label {
+    font-size: 11px; font-weight: 700; letter-spacing: 0.1em;
+    text-transform: uppercase; margin-bottom: 8px; color: var(--accent);
+  }
+  .ps-col-label::before { content: ''; display: inline-block; width: 18px; height: 2px;
+    background: var(--accent); margin-right: 6px; vertical-align: middle; }
+  .ps-col p { font-size: 13.5px; line-height: 1.5; color: var(--ink); margin: 0; }
+
+  .company-grid {
+    display: grid; grid-template-columns: repeat(4, 1fr);
+    gap: 12px; margin-top: 20px;
+  }
+  @media (max-width: 820px) { .company-grid { grid-template-columns: repeat(2, 1fr); } }
+  .company-card {
+    padding: 18px; background: #FFFFFF; border: 1px solid var(--light);
+    border-radius: 10px; text-align: center; transition: all 0.15s;
+  }
+  .company-card:hover { border-color: var(--accent); background: var(--accent-soft); }
+  .company-name { font-weight: 700; color: var(--navy); font-size: 14px; }
+  .company-role { font-size: 11.5px; color: var(--gray); margin-top: 4px; }
+
+  .timeline { position: relative; padding-left: 34px; margin: 28px 0; }
+  .timeline::before {
+    content: ''; position: absolute; left: 8px; top: 8px; bottom: 8px;
+    width: 2px; background: var(--light);
+  }
+  .timeline-item { position: relative; padding-bottom: 22px; }
+  .timeline-item::before {
+    content: ''; position: absolute; left: -32px; top: 6px;
+    width: 14px; height: 14px; border-radius: 50%;
+    background: var(--accent); border: 3px solid #FFF;
+    box-shadow: 0 0 0 2px var(--accent);
+  }
+  .timeline-time {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 13px; color: var(--accent); font-weight: 600;
+    letter-spacing: 0.02em; margin-bottom: 4px;
+  }
+  .timeline-activity { font-size: 15px; color: var(--ink); line-height: 1.55; }
+  .timeline-activity strong { color: var(--navy); }
+
+  .glossary-grid {
+    display: grid; grid-template-columns: repeat(2, 1fr);
+    gap: 14px 32px; margin-top: 20px;
+  }
+  @media (max-width: 820px) { .glossary-grid { grid-template-columns: 1fr; } }
+  .g-item { padding: 10px 0; border-bottom: 1px dashed var(--light); }
+  .g-term {
+    font-weight: 600; color: var(--navy); font-size: 14.5px;
+    display: block; margin-bottom: 3px;
+  }
+  .g-term abbr {
+    font-family: 'JetBrains Mono', monospace; background: var(--accent-soft);
+    color: var(--accent-dark); padding: 1px 7px; border-radius: 4px;
+    font-size: 12px; margin-right: 6px; font-weight: 700;
+    text-decoration: none; border: none;
+  }
+  .g-def { font-size: 13.5px; color: var(--slate); line-height: 1.5; }
+
+  footer {
+    background: var(--navy); color: #CBD5E1;
+    padding: 50px 0 30px; font-size: 14px; line-height: 1.6;
+  }
+  footer a { color: #F1F5F9; }
+  footer .footer-grid {
+    display: grid; grid-template-columns: 2fr 1fr 1fr;
+    gap: 40px; margin-bottom: 30px;
+  }
+  @media (max-width: 820px) { footer .footer-grid { grid-template-columns: 1fr; } }
+  footer h5 {
+    color: #FFFFFF; font-size: 13px; letter-spacing: 0.1em;
+    text-transform: uppercase; font-weight: 700; margin-bottom: 12px;
+  }
+  footer p { color: #94A3B8; font-size: 13.5px; }
+  footer .stamp {
+    border-top: 1px solid #334155; padding-top: 20px;
+    font-size: 12px; color: #64748B;
+  }
+
+  .pullquote {
+    font-family: 'Fraunces', serif;
+    font-style: italic; font-size: 26px; line-height: 1.35;
+    color: var(--navy); padding: 30px 0 20px;
+    border-top: 2px solid var(--accent); border-bottom: 1px solid var(--light);
+    margin: 34px 0;
+  }
+  .pullquote::before { content: '"'; color: var(--accent); font-size: 52px;
+    font-weight: 700; line-height: 0; margin-right: 6px; vertical-align: -12px; }
+  .pullquote cite {
+    display: block; font-style: normal; font-family: 'Inter', sans-serif;
+    font-size: 13px; color: var(--gray); font-weight: 500;
+    letter-spacing: 0.04em; text-transform: uppercase; margin-top: 14px;
+  }
+
+  .ecosystem {
+    display: grid; grid-template-columns: repeat(5, 1fr);
+    gap: 8px; margin: 30px 0; align-items: stretch;
+  }
+  @media (max-width: 820px) { .ecosystem { grid-template-columns: repeat(2, 1fr); } }
+  .eco-node {
+    padding: 20px 12px; text-align: center; border-radius: 10px;
+    border: 1px solid var(--light); background: #FFFFFF;
+    position: relative;
+  }
+  .eco-node::after {
+    content: '→'; position: absolute;
+    right: -14px; top: 50%; transform: translateY(-50%);
+    font-size: 20px; color: var(--gray); z-index: 2;
+  }
+  .eco-node:last-child::after { display: none; }
+  @media (max-width: 820px) { .eco-node::after { display: none; } }
+  .eco-node-title { font-weight: 700; color: var(--navy); font-size: 14px; margin-bottom: 6px; }
+  .eco-node-sub { font-size: 11.5px; color: var(--gray); line-height: 1.4; }
+
+  .steps { counter-reset: step; padding: 0; margin: 24px 0; list-style: none; }
+  .steps li {
+    counter-increment: step; padding-left: 56px; position: relative;
+    margin-bottom: 22px; font-size: 15px; line-height: 1.6;
+  }
+  .steps li::before {
+    content: counter(step);
+    position: absolute; left: 0; top: 0;
+    width: 40px; height: 40px; border-radius: 50%;
+    background: var(--accent); color: #FFFFFF;
+    font-family: 'Fraunces', serif; font-weight: 700; font-size: 18px;
+    display: flex; align-items: center; justify-content: center;
+  }
+  .steps li strong { display: block; color: var(--navy); margin-bottom: 4px; font-size: 16px; }
+</style>
+</head>
+<body>
+
+<nav class="topnav">
+  <div class="topnav-inner">
+    <div class="brand">The <span>Analyst</span> Desk</div>
+    <ul class="nav-links">
+      <li><a href="#industry">Industry 101</a></li>
+      <li><a href="#ecosystem">Ecosystem</a></li>
+      <li><a href="#crm">CRM</a></li>
+      <li><a href="#problems">Problems → Data</a></li>
+      <li><a href="#kpis">KPIs</a></li>
+      <li><a href="#career">Career</a></li>
+    </ul>
+  </div>
+</nav>
+
+<section class="hero">
+  <div class="wrap">
+    <span class="hero-eyebrow">Case Study Companion  ·  Series 02</span>
+    <h1>Support is where <em>retention</em> is won.</h1>
+    <p class="hero-lede">
+      A senior-analyst's guide to Customer Support & CRM Analytics — how the industry works, why
+      the best companies treat support as a retention function, and how an analyst turns ticket
+      data into churn-reduction decisions. Read this before you touch the SoundWave case.
+    </p>
+    <div class="hero-meta">
+      <div class="hero-meta-item"><div class="label">Domain</div><div class="value">Support + CRM</div></div>
+      <div class="hero-meta-item"><div class="label">Companion to</div><div class="value">SoundWave Audio Case</div></div>
+      <div class="hero-meta-item"><div class="label">Reading time</div><div class="value">~22 minutes</div></div>
+      <div class="hero-meta-item"><div class="label">Level</div><div class="value">Beginner → Analyst Interview</div></div>
+    </div>
+  </div>
+</section>
+
+<section id="industry">
+<div class="wrap narrow">
+  <div class="eyebrow">Section 01  ·  Industry 101</div>
+  <h2>What <em>is</em> customer support, actually?</h2>
+
+  <p class="lede">
+    For most of the 20th century, customer support was a cost centre — a ticket came in, someone
+    answered a phone, the ticket went away. The number that mattered was cost per contact. Nothing else.
+  </p>
+
+  <p>
+    In the last fifteen years, two things changed. First, subscription businesses (SaaS, streaming,
+    D2C) discovered that <strong>keeping a customer is 5–7× cheaper than acquiring one</strong> — so
+    anything that affects retention, like support quality, suddenly mattered in rupee terms. Second,
+    CRM systems started unifying customer data, so for the first time a support interaction could be
+    seen in the context of the customer's whole relationship with the brand — how much they've
+    bought, how satisfied they've been, how close they are to churning.
+  </p>
+
+  <p>
+    Modern customer support is really <strong>three functions stitched together</strong>, and the
+    analyst's job is to measure all three honestly:
+  </p>
+
+  <div class="grid-3" style="margin-top: 26px;">
+    <div class="card">
+      <div class="card-kicker">Operations</div>
+      <h4>Answer the ticket</h4>
+      <p>Staffing, scheduling, routing, SLAs, cost per contact. The legacy "call centre" function — still critical, still a large P&amp;L line.</p>
+    </div>
+    <div class="card">
+      <div class="card-kicker">Experience</div>
+      <h4>Make it feel good</h4>
+      <p>CSAT, NPS, sentiment, tone. How the customer feels when the ticket is closed. The bridge between operations and retention.</p>
+    </div>
+    <div class="card">
+      <div class="card-kicker">Retention</div>
+      <h4>Turn it into loyalty</h4>
+      <p>Churn signals, LTV preservation, upsell at the moment of truth. Support as a revenue function, not just a cost one.</p>
+    </div>
+  </div>
+
+  <div class="callout purple" style="margin-top: 30px;">
+    <div class="callout-title">◆ Why this matters for you</div>
+    <p>A weak analyst reports the operational layer only: "AHT went up, CSAT went down." A good
+    analyst connects it to the retention layer: "AHT went up because of a product defect that also
+    drove CSAT down in the Pulse Pro cohort, and those customers are now 4× more likely to churn.
+    Fixing the defect preserves ₹X of LTV." <strong>That bridge is what earns a seat at the table.</strong></p>
+  </div>
+
+  <h3>In-house vs BPO — the eternal debate</h3>
+  <p>
+    Every D2C brand hits this crossroads around ₹100 Cr ARR: your support volume is now too big for
+    an in-house team, but outsourcing it to a BPO feels like giving up control of the customer
+    relationship. There's no universally right answer. The table below is what a typical trade-off
+    looks like — and the SoundWave case is specifically designed to make you think about this.
+  </p>
+
+  <div class="table-wrap">
+  <table>
+    <thead><tr><th>Dimension</th><th>In-house</th><th>BPO (Outsourced)</th></tr></thead>
+    <tbody>
+      <tr><td>Cost per contact</td><td>Higher (₹300–500)</td><td>Lower (₹150–300)</td></tr>
+      <tr><td>Quality / CSAT</td><td>Usually higher; brand voice consistent</td><td>Usually lower; scripted feel</td></tr>
+      <tr><td>Training ramp</td><td>6–12 weeks</td><td>2–4 weeks (but higher churn)</td></tr>
+      <tr><td>Agent attrition</td><td>25–40% annually</td><td>60–100% annually</td></tr>
+      <tr><td>Flexibility (peak staffing)</td><td>Low — tied to headcount</td><td>High — scale up/down fast</td></tr>
+      <tr><td>Integration with CRM / product</td><td>Deep — feedback loops into product</td><td>Shallow — ticket-in, ticket-out</td></tr>
+    </tbody>
+  </table>
+  </div>
+</div>
+</section>
+
+<section id="ecosystem" class="alt">
+<div class="wrap">
+  <div class="narrow">
+    <div class="eyebrow">Section 02  ·  The Ecosystem</div>
+    <h2>The customer-support stack — <em>who talks to whom</em></h2>
+    <p class="lede">
+      A support organization doesn't run on one piece of software — it runs on a pipeline of 4–6
+      connected systems. Understanding this pipeline is how an analyst figures out where the data
+      actually lives.
+    </p>
+  </div>
+
+  <div class="ecosystem">
+    <div class="eco-node" style="background: var(--blue-soft);">
+      <div class="eco-node-title">Customer</div>
+      <div class="eco-node-sub">Has a problem.<br/>Picks a channel.</div>
+    </div>
+    <div class="eco-node" style="background: var(--accent-soft);">
+      <div class="eco-node-title">Channel Layer</div>
+      <div class="eco-node-sub">Voice (IVR), Chat, Email,<br/>WhatsApp, Bot</div>
+    </div>
+    <div class="eco-node" style="background: var(--gold-soft);">
+      <div class="eco-node-title">Ticketing</div>
+      <div class="eco-node-sub">Freshdesk, Zendesk,<br/>Kapture, Salesforce Service</div>
+    </div>
+    <div class="eco-node" style="background: var(--green-soft);">
+      <div class="eco-node-title">CRM</div>
+      <div class="eco-node-sub">Customer master,<br/>LTV, tier, NPS</div>
+    </div>
+    <div class="eco-node" style="background: var(--red-soft);">
+      <div class="eco-node-title">Warehouse + BI</div>
+      <div class="eco-node-sub">Redshift/Snowflake,<br/>Looker/Tableau</div>
+    </div>
+  </div>
+
+  <div class="narrow">
+    <h3>The players you should know (India market)</h3>
+    <div class="company-grid">
+      <div class="company-card"><div class="company-name">Freshdesk</div><div class="company-role">Ticketing — Indian-origin, dominant in SMB</div></div>
+      <div class="company-card"><div class="company-name">Zendesk</div><div class="company-role">Ticketing — global leader, mid-market + enterprise</div></div>
+      <div class="company-card"><div class="company-name">Salesforce Service Cloud</div><div class="company-role">Ticketing + CRM — enterprise incumbent</div></div>
+      <div class="company-card"><div class="company-name">Kapture CRM</div><div class="company-role">India-focused, strong in D2C + retail</div></div>
+      <div class="company-card"><div class="company-name">LeadSquared</div><div class="company-role">CRM — big in Indian education + BFSI</div></div>
+      <div class="company-card"><div class="company-name">HubSpot</div><div class="company-role">CRM + service — growth-stage companies</div></div>
+      <div class="company-card"><div class="company-name">Exotel / Ozonetel</div><div class="company-role">Cloud telephony (Indian voice infra)</div></div>
+      <div class="company-card"><div class="company-name">Haptik / Verloop</div><div class="company-role">Conversational AI / chatbots (Indian)</div></div>
+      <div class="company-card"><div class="company-name">Gallabox / AiSensy</div><div class="company-role">WhatsApp Business API tools</div></div>
+      <div class="company-card"><div class="company-name">Qualtrics</div><div class="company-role">CX survey + experience measurement</div></div>
+      <div class="company-card"><div class="company-name">Medallia</div><div class="company-role">Enterprise CX / VoC platform</div></div>
+      <div class="company-card"><div class="company-name">Gupshup</div><div class="company-role">Conversational engagement — Indian</div></div>
+    </div>
+  </div>
+</div>
+</section>
+
+<section id="crm">
+<div class="wrap narrow">
+  <div class="eyebrow">Section 03  ·  The Mental Model</div>
+  <h2>CRM tiers — the <em>pyramid that runs the business</em></h2>
+
+  <p class="lede">
+    Every CRM-savvy business segments customers into tiers based on value. The pyramid shape isn't
+    an accident — it reflects a brutal reality: the top 5–10% of your customers often contribute
+    30–50% of revenue, and losing one of them hurts exponentially more than losing a bottom-tier
+    customer. Support resources must be allocated asymmetrically.
+  </p>
+
+  <div class="pyramid">
+    <div class="pyramid-row">
+      <div class="pyramid-bar">PLATINUM</div>
+      <div class="pyramid-desc"><strong>Top 5%</strong>Highest LTV, longest tenure, usually brand advocates. White-glove support. Retention cost is small compared to what you lose if they leave.</div>
+    </div>
+    <div class="pyramid-row">
+      <div class="pyramid-bar">GOLD</div>
+      <div class="pyramid-desc"><strong>Next 15–20%</strong>Strong repeat purchasers. Target for upsell to Platinum. Priority routing on support tickets; personalized outreach.</div>
+    </div>
+    <div class="pyramid-row">
+      <div class="pyramid-bar">SILVER</div>
+      <div class="pyramid-desc"><strong>Middle 40%</strong>Standard customers. Cost-efficient support. Segment most exposed to churn — and where retention programs have biggest ROI.</div>
+    </div>
+    <div class="pyramid-row">
+      <div class="pyramid-bar">BRONZE</div>
+      <div class="pyramid-desc"><strong>Bottom 35–40%</strong>One-time or low-value buyers. Self-serve-first support. The honest question: are you <em>profitable</em> serving them?</div>
+    </div>
+  </div>
+
+  <div class="callout purple">
+    <div class="callout-title">★ The analyst's most common mistake</div>
+    <p>Reporting a single blended CSAT, churn rate, or AHT across all customers and declaring "we
+    have a problem." Almost always, <strong>the problem is concentrated in 1–2 tiers</strong> and
+    the fix belongs there, not across the board. Segment before you conclude. Always.</p>
+  </div>
+
+  <h3>Lifecycle stages — where they are in their journey</h3>
+  <p>
+    CRM tiers tell you how valuable a customer is <em>today</em>. Lifecycle stages tell you how
+    they're moving. A "Loyal" Gold customer and an "At-Risk" Gold customer need completely
+    different interventions, even though they're in the same tier.
+  </p>
+
+  <div class="table-wrap">
+  <table>
+    <thead><tr><th>Stage</th><th>Definition</th><th>What Support Should Do</th></tr></thead>
+    <tbody>
+      <tr><td><strong>New</strong></td><td>First 30 days after signup</td><td>Proactive onboarding outreach. First impression = everything.</td></tr>
+      <tr><td><strong>At-Risk New</strong></td><td>30–120 days, only 1 order</td><td>Second-order nudge. This is where most churn actually happens.</td></tr>
+      <tr><td><strong>Active</strong></td><td>Recent purchase, 2+ orders</td><td>Standard service. Keep it boring. Don't break what's working.</td></tr>
+      <tr><td><strong>Loyal</strong></td><td>3+ orders, high tier, recent activity</td><td>VIP treatment. Priority routing. Personalized touches.</td></tr>
+      <tr><td><strong>Dormant</strong></td><td>No activity in 90+ days</td><td>Win-back campaigns. Understand why they left.</td></tr>
+    </tbody>
+  </table>
+  </div>
+</div>
+</section>
+
+<section id="problems" class="alt">
+<div class="wrap">
+  <div class="narrow">
+    <div class="eyebrow">Section 04  ·  From business problem to data answer</div>
+    <h2>The real questions CX leaders ask — and how an analyst <em>translates</em> them</h2>
+    <p class="lede">
+      A VP of CX doesn't walk in and say "please calculate the weighted FCR segmented by agent
+      tenure." They say things like "Why are customers angry?" Your job is to translate that into a
+      sharp, answerable data question, run the numbers, and translate the answer back into a
+      business decision. Every row below is a real question we've heard. The SoundWave case is
+      essentially the first 4 of these, rolled together.
+    </p>
+  </div>
+
+  <div class="ps-item">
+    <div class="ps-col"><div class="ps-col-label">1. Business Problem</div><p><em>"Why is CSAT down this quarter?"</em> — VP CX, after a board review</p></div>
+    <div class="ps-col"><div class="ps-col-label">Data Question</div><p>Decompose the quarter's CSAT into channel, centre, reason, tier, and SLA-breach drivers; quantify the contribution of each to the overall movement.</p></div>
+    <div class="ps-col"><div class="ps-col-label">Analytical Approach</div><p>Weighted-mean decomposition. Compare this quarter vs last on each dimension. Isolate mix-shift effects from rate-shift effects.</p></div>
+    <div class="ps-col"><div class="ps-col-label">Decision it Drives</div><p>Where to focus the fix — centre retraining, SLA staffing, or a specific product issue.</p></div>
+  </div>
+
+  <div class="ps-item">
+    <div class="ps-col"><div class="ps-col-label">2. Business Problem</div><p><em>"Are our BPO centres worth keeping?"</em> — COO doing budget planning</p></div>
+    <div class="ps-col"><div class="ps-col-label">Data Question</div><p>Compare cost-per-contact vs CSAT vs FCR across in-house and BPO centres, normalized for reason/tier mix.</p></div>
+    <div class="ps-col"><div class="ps-col-label">Analytical Approach</div><p>Centre-level scorecard. Cost-adjusted CSAT. If you pay ₹150/contact for BPO but lose ₹80 of LTV from lower CSAT, net cost is ₹230 — not ₹150.</p></div>
+    <div class="ps-col"><div class="ps-col-label">Decision it Drives</div><p>Which centres to renew, re-negotiate, or bring in-house.</p></div>
+  </div>
+
+  <div class="ps-item">
+    <div class="ps-col"><div class="ps-col-label">3. Business Problem</div><p><em>"We need a self-serve strategy."</em> — CFO looking at rising support cost</p></div>
+    <div class="ps-col"><div class="ps-col-label">Data Question</div><p>What % of tickets could plausibly be deflected to self-serve, and what's the cost savings vs CSAT trade-off at different deflection rates?</p></div>
+    <div class="ps-col"><div class="ps-col-label">Analytical Approach</div><p>Top-reason analysis: identify reasons that are high-volume, low-complexity, and low-CSAT-risk (e.g. refund status, order tracking).</p></div>
+    <div class="ps-col"><div class="ps-col-label">Decision it Drives</div><p>Which ticket reasons to automate first. Investment case for the bot or help centre.</p></div>
+  </div>
+
+  <div class="ps-item">
+    <div class="ps-col"><div class="ps-col-label">4. Business Problem</div><p><em>"Who is about to churn, and why?"</em> — Head of Retention, every single week</p></div>
+    <div class="ps-col"><div class="ps-col-label">Data Question</div><p>Build a customer-level churn-risk score from support behaviour (ticket count, CSAT, SLA breaches, escalations, NPS, tier, subscription).</p></div>
+    <div class="ps-col"><div class="ps-col-label">Analytical Approach</div><p>Feature engineering, weighting (regression or scorecard), validation against historical churn. Produce a ranked list with reasons.</p></div>
+    <div class="ps-col"><div class="ps-col-label">Decision it Drives</div><p>Which 100 accounts to call this week. Which interventions to offer which risk tiers.</p></div>
+  </div>
+
+  <div class="ps-item">
+    <div class="ps-col"><div class="ps-col-label">5. Business Problem</div><p><em>"Our NPS dropped 8 points. Is it real?"</em> — Brand Manager, panicked</p></div>
+    <div class="ps-col"><div class="ps-col-label">Data Question</div><p>Is the NPS drop driven by sampling noise, a real shift in detractor share, or a mix shift in who responded?</p></div>
+    <div class="ps-col"><div class="ps-col-label">Analytical Approach</div><p>Decompose NPS change into response-rate-adjusted detractor %. Check respondent demographics vs customer base.</p></div>
+    <div class="ps-col"><div class="ps-col-label">Decision it Drives</div><p>Whether to escalate as a CX crisis or let it ride for another cycle.</p></div>
+  </div>
+
+  <div class="ps-item">
+    <div class="ps-col"><div class="ps-col-label">6. Business Problem</div><p><em>"Are our new agents productive?"</em> — WFM manager defending training spend</p></div>
+    <div class="ps-col"><div class="ps-col-label">Data Question</div><p>What's the productivity + quality curve by tenure? How many months until a new agent reaches parity with a senior one?</p></div>
+    <div class="ps-col"><div class="ps-col-label">Analytical Approach</div><p>Cohort analysis by hire month. Plot AHT, FCR, CSAT against tenure.</p></div>
+    <div class="ps-col"><div class="ps-col-label">Decision it Drives</div><p>Training investment, promotion pathways, bonus structure.</p></div>
+  </div>
+
+  <div class="ps-item">
+    <div class="ps-col"><div class="ps-col-label">7. Business Problem</div><p><em>"This product line is generating too many tickets."</em> — Head of Product, defensive</p></div>
+    <div class="ps-col"><div class="ps-col-label">Data Question</div><p>Which product SKUs have the highest ticket-per-unit-sold rate, and is it a product quality issue, a documentation issue, or an expectations mismatch?</p></div>
+    <div class="ps-col"><div class="ps-col-label">Analytical Approach</div><p>Ticket rate per 1,000 units sold, by SKU. Reason-mix within each SKU. Compare to product-team's claimed defect rate.</p></div>
+    <div class="ps-col"><div class="ps-col-label">Decision it Drives</div><p>Whether to recall, fix firmware, re-label, or just improve the setup guide.</p></div>
+  </div>
+
+  <div class="ps-item">
+    <div class="ps-col"><div class="ps-col-label">8. Business Problem</div><p><em>"Is our SoundWave+ subscription worth running?"</em> — CMO defending the programme</p></div>
+    <div class="ps-col"><div class="ps-col-label">Data Question</div><p>Do subscribers have better retention, CSAT, and LTV than non-subscribers, controlling for tier? What's the incremental LTV of the subscription?</p></div>
+    <div class="ps-col"><div class="ps-col-label">Analytical Approach</div><p>Matched cohort comparison (subscriber vs non-subscriber) within each tier. Subtract subscription cost from LTV uplift.</p></div>
+    <div class="ps-col"><div class="ps-col-label">Decision it Drives</div><p>Scale the programme, kill it, or reprice.</p></div>
+  </div>
+
+  <div class="narrow">
+    <div class="pullquote">
+      Great CX analysts don't just answer "what happened to the ticket." They answer "what
+      happened to the customer." The ticket is a snapshot. The customer is a movie.
+      <cite>— An anonymous Head of CX at a unicorn, on what separates great analysts</cite>
+    </div>
+  </div>
+</div>
+</section>
+
+<section id="kpis">
+<div class="wrap narrow">
+  <div class="eyebrow">Section 05  ·  The Language</div>
+  <h2>KPI Dictionary — the words you <em>must</em> know cold</h2>
+  <p class="lede">
+    Every metric below shows up in the SoundWave case. Master these before you touch the data. Click to expand.
+  </p>
+
+  <h3>Experience metrics</h3>
+
+  <details class="kpi-item" open>
+    <summary>Customer Satisfaction (CSAT)</summary>
+    <div class="kpi-formula">CSAT  =  avg(rating)  on a 1–5 scale   (sometimes expressed as % giving 4 or 5)</div>
+    <p>Post-interaction survey asking "how was your experience." The fundamental experience metric.
+    Response rates are usually 60–80%; beware non-response bias (angry customers are both more and
+    less likely to respond depending on the moment).</p>
+    <div class="kpi-meta"><span><strong>Benchmark (D2C India):</strong> 4.2 overall, 72% Promoter share (4–5).</span></div>
+  </details>
+
+  <details class="kpi-item">
+    <summary>Net Promoter Score (NPS)</summary>
+    <div class="kpi-formula">NPS  =  % Promoters (9–10)  −  % Detractors (0–6)   (range −100 to +100)</div>
+    <p>"How likely are you to recommend us to a friend?" on a 0–10 scale. Relationship-level loyalty
+    metric, distinct from post-interaction CSAT. NPS is the single best leading indicator of churn
+    at the customer level.</p>
+    <div class="kpi-meta"><span><strong>Benchmark:</strong> +38 for D2C electronics; +50+ is world-class.</span></div>
+  </details>
+
+  <details class="kpi-item">
+    <summary>Customer Effort Score (CES)</summary>
+    <div class="kpi-formula">CES  =  avg(response)  to "How much effort did you have to put in?" on a 1–7 scale</div>
+    <p>The quieter cousin of CSAT/NPS. Research shows <strong>effort predicts loyalty better than
+    satisfaction</strong> — a customer can be "satisfied" with a resolved issue but still churn if
+    the process was exhausting.</p>
+  </details>
+
+  <h3>Operational metrics</h3>
+
+  <details class="kpi-item">
+    <summary>Average Handle Time (AHT)</summary>
+    <div class="kpi-formula">AHT  =  Talk Time  +  Hold Time  +  After-Call Wrap-up Time</div>
+    <p>Minutes per interaction. The classic productivity metric. <strong>Warning</strong>:
+    optimizing AHT too hard hurts CSAT and FCR — agents rush to close tickets. Always look at AHT
+    alongside quality metrics, never alone.</p>
+    <div class="kpi-meta"><span><strong>Benchmark:</strong> 14 min voice, 9 min chat, 24 min email (includes drafting).</span></div>
+  </details>
+
+  <details class="kpi-item">
+    <summary>First Contact Resolution (FCR)</summary>
+    <div class="kpi-formula">FCR  =  Tickets resolved without re-contact  /  Total tickets   × 100%</div>
+    <p>The gold-standard quality metric. A high-FCR ticket costs less, produces higher CSAT, and
+    doesn't generate a second ticket. Most CX teams will sacrifice a few minutes of AHT for a
+    higher FCR — the math pays off.</p>
+    <div class="kpi-meta"><span><strong>Benchmark:</strong> 68% for D2C electronics.</span></div>
+  </details>
+
+  <details class="kpi-item">
+    <summary>Average Speed of Answer (ASA)</summary>
+    <div class="kpi-formula">ASA  =  avg(time from queue entry to agent pickup)   in seconds (voice)</div>
+    <p>How long the customer waited before a human picked up. Staffing adequacy's most direct
+    measure. Abandonment rate is ASA's sibling — customers who wait too long hang up.</p>
+    <div class="kpi-meta"><span><strong>Benchmark:</strong> 45 sec voice, 60 sec chat; 80/20 rule = 80% answered within 20 sec.</span></div>
+  </details>
+
+  <details class="kpi-item">
+    <summary>Abandonment Rate</summary>
+    <div class="kpi-formula">Abandonment  =  Calls dropped before answered  /  Calls offered   × 100%</div>
+    <p>% of customers who hang up before the agent picks up. Direct signal of understaffing or
+    poor IVR. Industry rule of thumb: &gt; 10% is a problem, &lt; 5% is healthy.</p>
+  </details>
+
+  <details class="kpi-item">
+    <summary>SLA Attainment</summary>
+    <div class="kpi-formula">SLA %  =  Tickets meeting SLA  /  Total tickets   × 100%</div>
+    <p>Contractual or promised response/resolution time window met. Different SLAs for different
+    channels (voice: seconds, email: hours). The gap between SLA targets and delivery is often
+    where CSAT quietly bleeds.</p>
+  </details>
+
+  <details class="kpi-item">
+    <summary>Schedule Adherence &amp; Occupancy</summary>
+    <div class="kpi-formula">Adherence  =  Time worked as scheduled  /  Scheduled time<br/>Occupancy  =  Time handling contacts  /  Logged-in time</div>
+    <p>Two workforce metrics that live together. Adherence tells you if agents are at their desks.
+    Occupancy tells you if they're working when they are. Both &gt; 85% signals a well-run centre;
+    both &lt; 75% signals slack.</p>
+  </details>
+
+  <h3>Cost metrics</h3>
+
+  <details class="kpi-item">
+    <summary>Cost per Contact (CPC)</summary>
+    <div class="kpi-formula">CPC  =  Total centre cost  /  Contacts handled</div>
+    <p>Fully-loaded cost: agent wages + supervisor + infra + overhead. Voice is the most expensive
+    channel; self-serve is 10–30× cheaper. This metric is why every CFO wants a deflection strategy.</p>
+    <div class="kpi-meta"><span><strong>Benchmark:</strong> ₹320 voice, ₹140 chat, ₹12 self-serve.</span></div>
+  </details>
+
+  <details class="kpi-item">
+    <summary>Cost to Serve (CTS)</summary>
+    <div class="kpi-formula">CTS per customer  =  Annual support cost for that customer  /  Revenue from that customer</div>
+    <p>The tier-aware efficiency metric. A Bronze customer generating 3 tickets a month on a ₹1,200
+    AOV is probably unprofitable. The most sophisticated CX orgs measure CTS and tier their support
+    accordingly.</p>
+  </details>
+
+  <h3>Retention metrics</h3>
+
+  <details class="kpi-item">
+    <summary>Churn Rate</summary>
+    <div class="kpi-formula">Churn %  =  Customers lost in period  /  Customers at start   × 100%</div>
+    <p>The big number. Usually expressed monthly or annually. For subscription businesses, even a
+    1% monthly churn compounds to 11.4% annually — small numbers matter.</p>
+  </details>
+
+  <details class="kpi-item">
+    <summary>Post-Support Churn Rate (30-day)</summary>
+    <div class="kpi-formula">Post-Support Churn %  =  Customers with a ticket who churn within 30 days  /  Total customers with a ticket</div>
+    <p>The single most telling metric linking support to retention. A healthy number is 3–5%. Above
+    8% means something is structurally broken in your support experience.</p>
+  </details>
+
+  <details class="kpi-item">
+    <summary>Customer Lifetime Value (LTV) &amp; LTV:CAC</summary>
+    <div class="kpi-formula">LTV  =  AOV  ×  Purchase Frequency  ×  Customer Lifespan<br/>LTV:CAC  =  LTV / Customer Acquisition Cost</div>
+    <p>The unit-economics backbone. LTV:CAC &gt; 3 is healthy. Support affects LTV through both
+    lifespan (churn reduction) and frequency (satisfied customers buy more). A 5% retention
+    improvement typically drives 25–95% more profit (Bain & Co classic).</p>
+  </details>
+
+  <details class="kpi-item">
+    <summary>Repeat Contact Rate</summary>
+    <div class="kpi-formula">Repeat Contact %  =  Customers with 4+ tickets in 90 days  /  Total customers with any ticket</div>
+    <p>The under-appreciated churn predictor. A customer who needs to contact you 4+ times in 90
+    days has almost always given up emotionally, even if each individual ticket closed "fine."</p>
+  </details>
+</div>
+</section>
+
+<section id="day-in-life" class="alt">
+<div class="wrap narrow">
+  <div class="eyebrow">Section 06  ·  The Role</div>
+  <h2>A day in the life of a CX analyst</h2>
+  <p class="lede">
+    Here's a composite Tuesday. Almost none of this looks like the glamorous "data science" work
+    that job postings promise. Most of it is translation: fuzzy business questions in, sharp
+    numeric answers out, business recommendations back.
+  </p>
+
+  <div class="timeline">
+    <div class="timeline-item">
+      <div class="timeline-time">08:50</div>
+      <div class="timeline-activity">Open laptop. CSAT dashboard shows yesterday at 3.82 — below the 4.20 benchmark for the fourth day running. Slack is already on fire.</div>
+    </div>
+    <div class="timeline-item">
+      <div class="timeline-time">09:15</div>
+      <div class="timeline-activity">Daily stand-up. Report yesterday's numbers. VP-CX asks for a breakdown by centre by EOD. You nod — you already know where this is going.</div>
+    </div>
+    <div class="timeline-item">
+      <div class="timeline-time">10:00</div>
+      <div class="timeline-activity"><strong>Pull ticket data, segment by centre and channel.</strong> Pune BPO's CSAT has dropped to 3.5; in-house Bangalore is still at 4.0. Check reason mix — Pune is suddenly handling 40% more "Product Defect" tickets this week.</div>
+    </div>
+    <div class="timeline-item">
+      <div class="timeline-time">11:30</div>
+      <div class="timeline-activity">Ping product team on Slack. "Is there a firmware issue with Pulse Pro released last week?" They go quiet for 20 minutes. Then confirm: a firmware update caused random Bluetooth drops.</div>
+    </div>
+    <div class="timeline-item">
+      <div class="timeline-time">12:45</div>
+      <div class="timeline-activity">Lunch at desk. The root cause isn't support — it's product. Start drafting a note: CSAT drop is product-driven, not centre-driven.</div>
+    </div>
+    <div class="timeline-item">
+      <div class="timeline-time">14:00</div>
+      <div class="timeline-activity"><strong>Build the weekly churn-risk list for retention.</strong> Run your scorecard. 87 customers flagged HIGH, up from 62 last week. The uptick tracks the Pulse Pro issue.</div>
+    </div>
+    <div class="timeline-item">
+      <div class="timeline-time">15:15</div>
+      <div class="timeline-activity">Head of Retention calls. "Can you call out the top-10 Platinum accounts?" You filter your list. 2 of them are at-risk. She calls them personally that afternoon with an offer. Saves both.</div>
+    </div>
+    <div class="timeline-item">
+      <div class="timeline-time">16:45</div>
+      <div class="timeline-activity">CFO pings: "How many of those product-defect tickets are on the ₹8,999 Studio Pro?" You check. Only 8%. Mostly ₹4,999 Pulse Pro. You share the mix. Recall scope conversation shifts.</div>
+    </div>
+    <div class="timeline-item">
+      <div class="timeline-time">18:00</div>
+      <div class="timeline-activity">Send EOD note to VP-CX with 3 slides: centre breakdown (exonerating Pune BPO), root-cause (product), recommended action (firmware rollback + proactive outreach). Close laptop.</div>
+    </div>
+  </div>
+
+  <div class="callout green">
+    <div class="callout-title">★ What you actually get paid for</div>
+    <p>Notice that the biggest value the analyst created today was <strong>correctly reassigning
+    blame</strong>. If they had just reported "Pune BPO's CSAT is down, renegotiate the contract,"
+    they would have hurt a vendor relationship AND missed the real product issue. Good CX analysts
+    don't just answer the question they were asked — they answer the question someone <em>should</em>
+    have asked.</p>
+  </div>
+</div>
+</section>
+
+<section id="career">
+<div class="wrap narrow">
+  <div class="eyebrow">Section 07  ·  Career</div>
+  <h2>Where this role <em>takes you</em></h2>
+  <p class="lede">
+    CX analytics is one of the fastest-growing entry paths into Indian tech, driven by the rise of
+    D2C, subscription businesses, and customer-obsessed unicorns. The toolkit — SQL, Excel, CRM
+    fluency, stakeholder management, retention math — transfers remarkably well to product
+    analytics, growth, operations, and general strategy roles.
+  </p>
+
+  <h3>Companies actively hiring CX and retention analysts (India, 2025)</h3>
+  <div class="grid-3">
+    <div class="card">
+      <div class="card-kicker">D2C Electronics</div>
+      <h4>boAt · Noise · Mivi · pTron</h4>
+      <p>Support Analytics / Retention Analyst. Direct parallel to the SoundWave case. Sub-10-minute
+      onboarding impact, visible quickly.</p>
+    </div>
+    <div class="card">
+      <div class="card-kicker">Consumer Tech</div>
+      <h4>Swiggy · Zomato · Flipkart · Nykaa</h4>
+      <p>CX Insights / Operations Analytics. Massive ticket volumes, sophisticated CRM stacks. Great
+      place to build scale muscle.</p>
+    </div>
+    <div class="card">
+      <div class="card-kicker">Subscription</div>
+      <h4>Netflix · JioHotstar · Spotify · Cult.fit</h4>
+      <p>Retention Analytics. Churn is existential here. Roles are deeply embedded with product and
+      lifecycle marketing.</p>
+    </div>
+    <div class="card">
+      <div class="card-kicker">Fintech</div>
+      <h4>Razorpay · Paytm · CRED · Groww</h4>
+      <p>Customer Support Analytics. Regulated, high-trust environment. Failure modes have financial
+      and reputational cost.</p>
+    </div>
+    <div class="card">
+      <div class="card-kicker">Enterprise</div>
+      <h4>Freshworks · Zoho · HubSpot India</h4>
+      <p>Customer Success Ops / Analytics. The software that runs CX, built by CX people. Strongest
+      fundamentals training.</p>
+    </div>
+    <div class="card">
+      <div class="card-kicker">Consulting / BPO</div>
+      <h4>Accenture · [24]7.ai · Tech Mahindra · Genpact</h4>
+      <p>CX Consulting / Analytics. Work across multiple clients. Broader exposure; slower path to
+      depth.</p>
+    </div>
+  </div>
+
+  <h3>Typical career trajectories</h3>
+  <div class="table-wrap">
+  <table>
+    <thead>
+      <tr><th>Stage</th><th>Title</th><th>Years</th><th>India Comp (2025)</th><th>What you do</th></tr>
+    </thead>
+    <tbody>
+      <tr><td>Entry</td><td>Support / CX Analyst</td><td>0–2</td><td>₹7 – ₹16L</td><td>Dashboards, daily reports, ad-hoc pulls</td></tr>
+      <tr><td>Mid</td><td>Senior CX Analyst / Retention Analyst</td><td>2–5</td><td>₹16 – ₹35L</td><td>Own a vertical. Build churn models. Influence ops decisions</td></tr>
+      <tr><td>Senior</td><td>CX Analytics Manager / Head of Retention</td><td>5–10</td><td>₹35L – ₹1Cr</td><td>Lead the team. Own the retention P&amp;L lever. Board reporting</td></tr>
+      <tr><td>Leader</td><td>VP CX / Chief Customer Officer</td><td>10+</td><td>₹1Cr+</td><td>Own the customer function end-to-end. Report to CEO</td></tr>
+    </tbody>
+  </table>
+  </div>
+
+  <div class="callout purple">
+    <div class="callout-title">◆ A note on pivots</div>
+    <p>CX analyst is one of the most optionality-rich seats in analytics. From here you can credibly
+    move into: <strong>product analytics</strong> (you already think in customer journeys),
+    <strong>growth / lifecycle marketing</strong> (retention is half of growth),
+    <strong>operations / workforce management</strong> (staffing and capacity planning is your daily
+    bread), <strong>strategy / consulting</strong> (you've lived at the intersection of ops, experience,
+    and finance), or <strong>customer success leadership</strong> (the modern SaaS career path).</p>
+  </div>
+</div>
+</section>
+
+<section id="tools" class="alt">
+<div class="wrap narrow">
+  <div class="eyebrow">Section 08  ·  Toolkit</div>
+  <h2>The tools you'll actually use</h2>
+
+  <p class="lede">
+    Like every analyst role, the stated stack and the actual stack are different. Here's the
+    honest breakdown by how much of your time each tool eats.
+  </p>
+
+  <ol class="steps">
+    <li><strong>SQL</strong> — 35–45% of your time. Non-negotiable. Every ticketing system and CRM
+    sits on top of a warehouse (Redshift, BigQuery, Snowflake, Databricks). Window functions, CTEs,
+    joins cold.</li>
+    <li><strong>Excel / Google Sheets</strong> — 25–35%. Yes, in 2025. Pivot tables, SUMIFS, XLOOKUP,
+    scorecard builds. Most executive reports still land here.</li>
+    <li><strong>A BI tool</strong> — 10–15%. Looker, Tableau, Metabase, Power BI, Freshdesk's own
+    dashboards. You'll build and maintain dashboards daily.</li>
+    <li><strong>Ticketing / CRM UIs</strong> — 10%. Freshdesk, Zendesk, Salesforce Service Cloud,
+    Kapture. You'll need to pull raw exports and understand the data model.</li>
+    <li><strong>Python / Notebooks</strong> — 5–10%. Pandas and scikit-learn for churn models, text
+    analysis on ticket descriptions, NPS verbatim clustering.</li>
+    <li><strong>Presentation & storytelling</strong> — always. The analysts who grow fastest are
+    the ones who can turn a 50-row pivot into a three-slide narrative a VP can act on.</li>
+  </ol>
+
+  <div class="callout blue">
+    <div class="callout-title">◆ The honest advice no one gives you</div>
+    <p>The CX analysts who get promoted quickly are not the ones who master the most tools. They're
+    the ones who understand <strong>the customer</strong>. Read 30 tickets a week. Listen to 5
+    calls a month. Know what it feels like when an angry customer gets their issue closed. You'll
+    find patterns in the data that pure number-crunchers miss because you'll know what to look for.</p>
+  </div>
+</div>
+</section>
+
+<section id="approach">
+<div class="wrap narrow">
+  <div class="eyebrow">Section 09  ·  Approach</div>
+  <h2>How to actually tackle the SoundWave case</h2>
+  <p class="lede">
+    You now know enough context. Here's the sequence we'd follow if we were opening the workbook
+    fresh. The capstone churn model is designed to be built last — don't be tempted to start there.
+  </p>
+
+  <ol class="steps">
+    <li><strong>Read the case doc twice, cover-to-cover.</strong> First pass: absorb the context
+    and stakeholders. Second pass: underline each specific analysis question and required metric.
+    Don't open the Excel yet.</li>
+    <li><strong>Write the 3-line executive summary you <em>hope</em> to end with.</strong> Before
+    touching data, write your hypothesis. e.g. <em>"Q3 CSAT dipped because of a product defect in
+    Pulse Pro. BPO centres show lower CSAT than in-house. Top churn risk sits in Bronze
+    non-subscribers. We recommend firmware rollback, an LTV-weighted retention push on 100 HIGH-risk
+    customers, and a 5-pt self-serve shift for ₹1.4 Cr annual savings."</em></li>
+    <li><strong>Clean the data — honestly and visibly.</strong> Unify date formats, normalize gender
+    casing, standardize city spellings, handle <code>\N</code>/nulls. Document every cleaning step.
+    This alone is worth 10% of your grade.</li>
+    <li><strong>Build the diagnostic views.</strong> Overall scorecard first, then drill: channel,
+    centre, reason, tier, lifecycle, SLA. Every view compared to benchmark.</li>
+    <li><strong>Layer in cost.</strong> Cost-per-contact by channel. Cost-per-CSAT-point by
+    centre. Deflection opportunity quantified.</li>
+    <li><strong>Build the retention view.</strong> Churn by tier, NPS bucket, subscription status.
+    Churn reason mix. Which support patterns correlate with historical churn.</li>
+    <li><strong>Now build the capstone model.</strong> Features → weights → score → validate →
+    top-100 list. Write the methodology note.</li>
+    <li><strong>Synthesize → 3-bullet executive summary.</strong> Compare to your Step-2 hypothesis.
+    The gap is where your real insight lives.</li>
+    <li><strong>Build the deck.</strong> Follow the structure in the instructions PDF. 12–16 slides,
+    no more. Every chart with a "so-what" title.</li>
+    <li><strong>Sleep on it. Re-read. Cut 30%.</strong> The third draft is always the best.</li>
+  </ol>
+
+  <div class="callout purple">
+    <div class="callout-title">◆ Final nudge</div>
+    <p>Every ticket in this dataset represents a real moment of frustration for a real customer
+    (even if the customer is synthetic). The analysts who get the best grades — and the best jobs —
+    are the ones who <strong>never forget there's a human at the other end</strong>. Numbers tell
+    you what happened. Empathy tells you why. You need both. Good luck.</p>
+  </div>
+</div>
+</section>
+
+<section id="glossary" class="alt">
+<div class="wrap narrow">
+  <div class="eyebrow">Section 10  ·  Glossary</div>
+  <h2>Acronyms you'll hear every day</h2>
+  <p class="lede">Bookmark this. Every one of these will come up in interviews and daily work.</p>
+
+  <div class="glossary-grid">
+    <div class="g-item"><span class="g-term"><abbr>AHT</abbr>Average Handle Time</span><span class="g-def">Minutes per contact, incl. wrap-up.</span></div>
+    <div class="g-item"><span class="g-term"><abbr>ASA</abbr>Average Speed of Answer</span><span class="g-def">Seconds until agent pickup (voice).</span></div>
+    <div class="g-item"><span class="g-term"><abbr>BPO</abbr>Business Process Outsourcing</span><span class="g-def">Outsourced call centres / back-office.</span></div>
+    <div class="g-item"><span class="g-term"><abbr>CAC</abbr>Customer Acquisition Cost</span><span class="g-def">Cost to acquire one customer.</span></div>
+    <div class="g-item"><span class="g-term"><abbr>CDP</abbr>Customer Data Platform</span><span class="g-def">Unifies customer data across systems (Segment, mParticle).</span></div>
+    <div class="g-item"><span class="g-term"><abbr>CES</abbr>Customer Effort Score</span><span class="g-def">How hard the customer had to work.</span></div>
+    <div class="g-item"><span class="g-term"><abbr>CPC</abbr>Cost per Contact</span><span class="g-def">Fully-loaded cost per ticket.</span></div>
+    <div class="g-item"><span class="g-term"><abbr>CRM</abbr>Customer Relationship Management</span><span class="g-def">System of record for customer data and lifecycle.</span></div>
+    <div class="g-item"><span class="g-term"><abbr>CSAT</abbr>Customer Satisfaction</span><span class="g-def">Post-interaction survey, 1–5 scale.</span></div>
+    <div class="g-item"><span class="g-term"><abbr>CTS</abbr>Cost to Serve</span><span class="g-def">Total cost of supporting one customer annually.</span></div>
+    <div class="g-item"><span class="g-term"><abbr>CX</abbr>Customer Experience</span><span class="g-def">Umbrella term for the end-to-end customer relationship.</span></div>
+    <div class="g-item"><span class="g-term"><abbr>FCR</abbr>First Contact Resolution</span><span class="g-def">% tickets resolved without re-contact.</span></div>
+    <div class="g-item"><span class="g-term"><abbr>IVR</abbr>Interactive Voice Response</span><span class="g-def">Automated phone menus ("press 1 for...").</span></div>
+    <div class="g-item"><span class="g-term"><abbr>KPI</abbr>Key Performance Indicator</span><span class="g-def">A metric tied to a business goal.</span></div>
+    <div class="g-item"><span class="g-term"><abbr>LTV</abbr>Lifetime Value</span><span class="g-def">Total expected profit from a customer over their lifetime.</span></div>
+    <div class="g-item"><span class="g-term"><abbr>NPS</abbr>Net Promoter Score</span><span class="g-def">% Promoters − % Detractors. Loyalty metric.</span></div>
+    <div class="g-item"><span class="g-term"><abbr>QA</abbr>Quality Assurance</span><span class="g-def">Ticket/call audits by a quality team.</span></div>
+    <div class="g-item"><span class="g-term"><abbr>SLA</abbr>Service Level Agreement</span><span class="g-def">Contractual response/resolution time promise.</span></div>
+    <div class="g-item"><span class="g-term"><abbr>SOP</abbr>Standard Operating Procedure</span><span class="g-def">The agent's playbook for a given scenario.</span></div>
+    <div class="g-item"><span class="g-term"><abbr>VoC</abbr>Voice of Customer</span><span class="g-def">Qualitative feedback programmes (surveys, interviews).</span></div>
+    <div class="g-item"><span class="g-term"><abbr>WFM</abbr>Workforce Management</span><span class="g-def">Forecasting and scheduling for contact centres.</span></div>
+    <div class="g-item"><span class="g-term"><abbr>TAT</abbr>Turnaround Time</span><span class="g-def">End-to-end resolution time for a ticket.</span></div>
+    <div class="g-item"><span class="g-term"><abbr>L1/L2/L3</abbr>Agent Tiers</span><span class="g-def">Escalation levels — L1 frontline, L2 specialists, L3 engineering.</span></div>
+    <div class="g-item"><span class="g-term"><abbr>RCA</abbr>Root Cause Analysis</span><span class="g-def">Investigation into why an issue happened.</span></div>
+    <div class="g-item"><span class="g-term"><abbr>AOV</abbr>Average Order Value</span><span class="g-def">Revenue ÷ orders.</span></div>
+    <div class="g-item"><span class="g-term"><abbr>D2C</abbr>Direct to Consumer</span><span class="g-def">Brand sells directly to end users (vs wholesale).</span></div>
+    <div class="g-item"><span class="g-term"><abbr>MAU/DAU</abbr>Monthly/Daily Active Users</span><span class="g-def">Engagement metric for apps/services.</span></div>
+    <div class="g-item"><span class="g-term"><abbr>SKU</abbr>Stock Keeping Unit</span><span class="g-def">A unique product variant.</span></div>
+    <div class="g-item"><span class="g-term"><abbr>CC</abbr>Contact Centre</span><span class="g-def">Modern term for call centre — covers all channels.</span></div>
+    <div class="g-item"><span class="g-term"><abbr>RMN</abbr>Repeat Contact</span><span class="g-def">Customer contacts again within a defined window.</span></div>
+  </div>
+</div>
+</section>
+
+<footer>
+<div class="wrap">
+  <div class="footer-grid">
+    <div>
+      <h5>The Analyst Desk</h5>
+      <p>A case-study and industry-primer series designed to prepare students for real analyst
+      roles at consulting firms, D2C brands, consumer tech companies, and subscription businesses.
+      Every case mirrors the structure used by real companies for first-round interviews and
+      onboarding.</p>
+    </div>
+    <div>
+      <h5>Series 02</h5>
+      <p>Customer Support + CRM Analytics  ·  SoundWave Audio Co. Q3 Review</p>
+      <p>Previous: Digital Marketing  ·  Up next: E-commerce &amp; Quick Commerce  ·  Fintech Analytics  ·  Supply Chain</p>
+    </div>
+    <div>
+      <h5>For Educators</h5>
+      <p>Designed to be read <em>before</em> the SoundWave case instructions PDF. Reading time:
+      ~22 minutes. Use as pre-reading in classroom / bootcamp settings.</p>
+    </div>
+  </div>
+  <div class="stamp">
+    Data and scenarios are synthetic but structurally modelled on real D2C electronics support operations
+    in India. Prepared as an educational resource — not affiliated with any real brand mentioned.
+    © 2025 Analyst Desk  ·  For classroom and self-study use.
+  </div>
+</div>
+</footer>
+
+</body>
+</html>
